@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llama 3.2 Streaming Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include marked library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Include Highlight.js CSS (Atom One Dark theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <!-- Include Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Optional: Load specific languages for smaller bundle size -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script> -->
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <h1>
+                <span id="mood-indicator" class="mood-indicator"></span>
+                <span id="header-title">AI Chatbot</span>
+                <span class="model-badge">llama3.2:3b</span>
+            </h1>
+            <div class="header-controls">
+                <span class="settings-icon" id="settings-icon-clickable">⚙️</span>
+                <label class="switch" id="theme-toggle-switch">
+                    <input type="checkbox" id="theme-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="settings-menu" class="settings-menu">
+                <label for="persona-select">Chatbot Persona:</label>
+                <select id="persona-select">
+                    <option value="default">Default Assistant</option>
+                    <option value="custom">Custom Ruleset</option>
+                    <option value="code-explainer">Code Explainer</option>
+                    <option value="bullet-points">Summarize with Bulletpoints</option>
+                    <option value="prof-oak">Professor Oak</option>
+                    <option value="steve">Minecraft Steve (JB)</option>
+                    <option value="kinglebron">King LeBron</option>
+                    <option value="pirate">Pirate</option>
+                </select>
+
+                <label for="ruleset-input" id="ruleset-label">Custom Ruleset/Instructions:</label>
+                <textarea id="ruleset-input" rows="4" placeholder="Enter custom rules here..."></textarea>
+                
+                <div class="settings-buttons">
+                    <button id="save-settings-button">Save</button>
+                    <button id="clear-chat-button">Clear Chat</button>
+                </div>
+            </div>
+        </div>
+        <div id="chat-box" class="chat-box">
+            <!-- Initial message removed, JS can add it if needed -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button">↑</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

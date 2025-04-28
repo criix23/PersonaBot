@@ -1,0 +1,1175 @@
+/* --- style.css --- */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap'); /* Added Tiny5 font */
+
+/* Define color variables in :root (light theme default) */
+:root {
+    --bg-color: #f4f4f4;
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #c7c7c7;
+    --input-bg: #c7c7c7;
+    --input-border: #cccccc;
+    --button-bg: #007bff;
+    --button-text: #ffffff;
+    --button-hover-bg: #0056b3;
+    --user-message-bg: #007bff;
+    --user-message-text: #ffffff;
+    --bot-message-bg: #c7c7c7;
+    --bot-message-text: #333333;
+    --header-bg: #f8f9fa;
+    --header-text: #333333;
+    --code-bg: #555555;
+    --code-text: #ffffff;
+    --badge-bg: #e0e0e0;
+    --badge-text: #555555;
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #c1c1c1;
+    --scrollbar-thumb-hover: #a8a8a8;
+    --message-bg: #f4f4f4;
+    /* Neumorphism Shadows REMOVED */
+}
+
+/* Define dark theme overrides */
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --container-bg: #2d2d2d; /* Reverted dark bg */
+    --text-color: #e0e0e0;
+    --border-color: #444444; /* Reverted dark border */
+    --input-bg: #3a3a3a;
+    --input-border: #555555;
+    --button-bg: #4a4a4a; /* Darker button still looks okay */
+    --button-text: #e0e0e0;
+    --button-hover-bg: #5a5a5a;
+    --user-message-bg: #4a4a4a;
+    --user-message-text: #e0e0e0;
+    --bot-message-bg: #3a3a3a;
+    --bot-message-text: #e0e0e0;
+    --header-bg: #333333; /* Reverted dark header */
+    --header-text: #e0e0e0;
+    --code-bg: #000000;
+    --code-text: #e0e0e0;
+    --badge-bg: #4a4a4a;
+    --badge-text: #cccccc;
+    --scrollbar-track: #2d2d2d;
+    --scrollbar-thumb: #555555;
+    --scrollbar-thumb-hover: #6b6b6b;
+    --message-bg: #2d2d2d;
+    /* Neumorphism Shadows REMOVED */
+}
+
+/* Apply variables */
+body {
+    /* Prioritize Geist Mono, keep system fonts as fallbacks */
+    font-family: "Geist Mono", Monaco, Consolas, "Courier New", monospace, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flex to center container */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.chat-container {
+    background: var(--container-bg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); /* Restore subtle shadow */
+    width: 95%;
+    height: 95vh; /* Adjusted height */
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--border-color); /* Restore border */
+    border-radius: 26px; /* Restore original radius */
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+    /* Neumorphism Shadow REMOVED */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 25px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--header-bg); /* Restore header background */
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    position: relative; /* Needed for absolute positioning of settings menu */
+}
+
+h1 {
+    color: var(--header-text); /* Use header text color */
+    margin: 0;
+    font-size: 1.2em; /* Slightly larger */
+    font-weight: 500; /* Medium weight */
+    display: flex; /* Align badge */
+    align-items: center;
+    gap: 10px; /* Space between title and badge */
+}
+
+.model-badge {
+    background-color: var(--badge-bg);
+    color: var(--badge-text);
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.7em;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.mood-indicator {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 1.1em; /* Adjust size as needed */
+    /* Animation could be added later */
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icon and switch */
+}
+
+.settings-icon {
+    font-size: 1.4em;
+    cursor: pointer; /* Indicate clickability (though none added yet) */
+    color: var(--text-color);
+}
+
+/* --- Theme Toggle Switch CSS --- */
+/* Variables inside the switch rule */
+.switch {
+  display: block;
+  --width-of-switch: 3.5em;
+  --height-of-switch: 2em;
+  --size-of-icon: 1.4em;
+  --slider-offset: 0.3em;
+  position: relative;
+  width: var(--width-of-switch);
+  height: var(--height-of-switch);
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cecece;
+  transition: .4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: var(--size-of-icon,1.4em);
+  width: var(--size-of-icon,1.4em);
+  border-radius: 20px;
+  left: var(--slider-offset,0.3em);
+  top: 50%;
+  transform: translateY(-50%);
+  /* Light mode sun */
+  background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--border-color); /* Dark background for slider */
+}
+
+input:checked + .slider:before {
+  left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
+  background: var(--border-color); /* Dark background for moon */
+  /* Dark mode moon */
+  box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+}
+/* --- End Theme Toggle Switch CSS --- */
+
+
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* INCREASED gap for more vertical spacing */
+    /* Scrollbar Styling */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* Firefox */
+}
+
+/* Webkit Scrollbar Styling (Chrome, Safari, Edge) */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-box::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 4px; /* Optional */
+}
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 4px;
+    border: 2px solid var(--scrollbar-track); /* Creates padding around thumb */
+}
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+/* --- Message Wrapper and Controls --- */
+.message-wrapper {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    width: 100%; /* Take full width to allow internal alignment */
+    gap: 5px; /* Small gap between message/controls */
+}
+
+.user-msg-wrapper {
+    justify-content: flex-end; /* Align user message content/controls to the right */
+}
+
+.bot-msg-wrapper {
+    justify-content: flex-start; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 0px; /* Increase gap between message block and reactions */
+}
+
+/* Container for the message bubble and its adjacent controls */
+.message-content-controls-block {
+    display: flex;
+    align-items: flex-start; /* Align bubble and controls */
+    gap: 5px;
+    /* Add this for bot messages to align correctly within the column wrapper */
+    width: auto; /* Let it size based on content */ 
+    max-width: 90%; /* Prevent block from becoming too wide */
+}
+
+
+.user-msg-wrapper .message-content-controls-block {
+    /* Ensure user block aligns right within the main wrapper */
+    margin-left: auto; 
+}
+
+/* Make message take available space within wrapper */
+.message-wrapper .message {
+    max-width: none; /* Remove max-width from message itself, handle in wrapper/block */
+    word-wrap: break-word; /* Allow long words to break */
+    overflow-wrap: break-word; /* Standard property */
+    /* white-space: pre-wrap; Removed, handled by markdown rendering potentially */
+}
+.user-msg-wrapper .message {
+    order: 2; /* Message second for user */
+}
+
+.message-controls {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically if needed */
+    gap: 4px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.2s ease;
+    order: 2; /* Controls second visually */
+    position: relative; /* For positioning reaction palette */
+}
+.user-msg-wrapper .message-controls {
+    order: 1; /* Controls first for user */
+}
+
+/* Show controls on wrapper hover */
+.message-wrapper:hover .message-controls {
+    opacity: 1;
+}
+
+.msg-ctrl-btn {
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 28px; /* Slightly larger control buttons */
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    opacity: 0.7;
+    font-family: inherit; /* <-- Inherit font */
+}
+
+.msg-ctrl-btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 1;
+}
+
+/* Style for SVGs inside buttons */
+#send-button svg,
+.msg-ctrl-btn svg,
+.copy-button svg {
+    width: 1.2em; 
+    height: 1.2em;
+    fill: currentColor; 
+    align-items: center;
+}
+
+.settings-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+/* --- End Message Wrapper --- */
+
+.message {
+    padding: 12px 18px;
+    border-radius: 20px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.user-message {
+    background-color: var(--user-message-bg);
+    color: var(--user-message-text);
+    align-self: flex-end;
+    border-bottom-right-radius: 6px; /* Adjust curve */
+}
+
+.bot-message {
+    background-color: var(--bot-message-bg);
+    color: var(--bot-message-text);
+    align-self: flex-start;
+    border-bottom-left-radius: 6px; /* Adjust curve */
+}
+
+/* Styling for Markdown elements within bot messages */
+.bot-message p {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+.bot-message p:last-child {
+    margin-bottom: 0;
+}
+.bot-message ul, .bot-message ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 25px;
+}
+.bot-message li {
+    margin-bottom: 0.25em;
+}
+.bot-message strong {
+    font-weight: bold;
+}
+.bot-message em {
+    font-style: italic;
+}
+.bot-message code {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+.bot-message pre {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 0.9em;
+    margin: 0.5em 0;
+}
+.bot-message pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px; /* Adjusted padding */
+    border-top: 1px solid var(--border-color); 
+    background-color: var(--container-bg); /* Restore input area background */
+    flex-shrink: 0;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    /* Match bottom corners to container */
+    border-bottom-left-radius: 24px; /* Container radius (26px) - border (2px) */
+    border-bottom-right-radius: 24px; /* Container radius (26px) - border (2px) */
+    /* Ensure it stays rounded even if container overflow fails */
+    overflow: hidden; 
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 12px 18px; /* Match message padding */
+    border: none; /* Remove border */
+    border-radius: 22px; /* Match button radius */
+    margin-right: 10px;
+    font-size: 1em;
+    background-color: var(--input-bg); /* Use input specific bg */
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    outline: none; /* Remove focus outline */
+    font-family: inherit; /* <-- Inherit font */
+    /* Optional: Add inner neumorphism to input */
+    /* box-shadow: inset 5px 5px 10px var(--neumorphism-shadow-dark), 
+                 inset -5px -5px 10px var(--neumorphism-shadow-light); */
+}
+
+/* --- Main Send Button Styling --- */
+#send-button { 
+    padding: 0;
+    width: 44px; 
+    height: 44px; 
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    margin-left: 5px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; 
+    font-family: inherit; /* <-- Inherit font (for text if button had it) */
+}
+
+#send-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    /* Add Send Icon (e.g., FontAwesome or SVG later) */
+}
+#send-button:hover {
+    background-color: var(--button-hover-bg);
+}
+#send-button:disabled {
+    background-color: var(--button-bg); /* Keep color when disabled */
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Hide stop button */
+.stop-button {
+    display: none; /* Hide by default */
+}
+.stop-button.visible { /* Use .visible class to show */
+    display: flex; 
+}
+
+/* --- Settings Menu Styles --- */
+.settings-menu {
+    position: absolute;
+    top: 99%; /* Position below header */
+    right: 0px; /* Align with header controls */
+    background-color: var(--header-bg); /* Match container */
+    border: 1px solid var(--border-color);
+    border-top: none; /* Remove top border */
+    border-right: none;
+    border-radius: 0 0 0px 8px; /* Round bottom corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 10; /* Ensure it's above chat box */
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.settings-menu.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.settings-menu label {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.settings-menu select,
+.settings-menu textarea {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 0.9em;
+    width: 100%; /* Make them full width */
+    box-sizing: border-box; /* Include padding/border in width */
+    font-family: inherit; /* <-- Inherit font */
+}
+
+.settings-menu select {
+    appearance: none; /* Remove default appearance */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right .7em top 50%;
+    background-size: .65em auto;
+    padding-right: 2em; /* Make space for arrow */
+}
+
+/* Adjust select arrow color for dark mode */
+body.dark-mode .settings-menu select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e0e0e0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+}
+
+.settings-menu textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+#ruleset-label,
+#ruleset-input {
+    display: block; /* Default display */
+}
+
+#ruleset-label.hidden,
+#ruleset-input.hidden {
+    display: none; /* Hide when persona is not 'custom' */
+}
+
+.settings-buttons {
+    display: flex;
+    justify-content: space-between; /* Align buttons to the right */
+    margin-top: 10px; 
+}
+
+.settings-menu button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+    font-family: inherit; /* <-- Inherit font */
+}
+
+#clear-chat-button {
+    background-color: #6c757d; /* Grey color */
+    order: 2; /* Put clear button second visually */
+}
+
+#save-settings-button {
+    order: 1; /* Put save button first */
+}
+
+#clear-chat-button:hover {
+    background-color: #5a6268;
+}
+
+.settings-menu button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Simple class to hide elements */
+.hidden {
+    display: none !important;
+}
+
+/* --- End Settings Menu Styles --- */
+
+/* Styling for Markdown elements ... */
+.bot-message code { /* Inline code */
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+/* Remove default <pre> styling if wrapper handles it */
+/*
+.bot-message pre {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto; 
+    font-family: monospace;
+    font-size: 0.9em;
+    margin: 0.5em 0;
+}
+*/
+
+.bot-message pre code { /* Reset background/padding for code inside pre */
+    background-color: transparent;
+    padding: 0;
+    font-size: inherit; /* Inherit font size from pre */
+}
+
+
+/* --- Enhanced Code Block Styles --- */
+.code-block-wrapper {
+    background-color: #282c34; /* Dark background matching atom-one-dark */
+    border-radius: 8px;
+    margin: 1em 0; /* Add some vertical margin */
+    overflow: hidden; /* Ensure children conform to rounded corners */
+}
+
+.code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333333; /* Slightly darker header */
+    padding: 5px 15px;
+    border-bottom: 1px solid #3e4451; /* Subtle border */
+}
+
+.language-name {
+    color: #abb2bf; /* Light grey text */
+    font-size: 0.85em;
+    text-transform: lowercase;
+    font-family: sans-serif;
+}
+
+.code-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.copy-button /* Add Edit button styles later */ {
+    background: none;
+    border: none;
+    color: #abb2bf;
+    cursor: pointer;
+    /* font-size: 0.85em; REMOVED */
+    padding: 0; /* Remove padding if using icon */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    display: flex; /* Align icon */
+    align-items: center;
+    justify-content: center;
+    min-width: 40px; /* Ensure space for 'Copied!' text */
+    height: 24px; /* Match height */
+    font-family: inherit; /* <-- Inherit font */
+}
+
+/* Adjust copy button text styling when text is shown */
+.copy-button[title="Copied!"], 
+.copy-button[title="Error copying"] {
+    font-size: 0.8em;
+    padding: 3px 6px;
+}
+
+.copy-button:hover {
+    background-color: #3e4451; /* Hover effect */
+}
+
+/* Style the <pre> element within the wrapper */
+.code-block-wrapper pre {
+    margin: 0; /* Remove default margin */
+    padding: 15px; /* Add padding inside */
+    overflow-x: auto; /* Keep horizontal scroll */
+    color: #abb2bf; /* Default code text color from theme */
+    font-family: monospace; 
+    font-size: 0.9em;
+}
+/* --- End Enhanced Code Block Styles --- */
+
+/* --- Custom Highlight.js Overrides --- */
+.code-block-wrapper .hljs-comment {
+    color: #6a9955 !important; /* Green color for comments - !important might be needed to override theme */
+    /* font-style: italic; */ /* Optional: make comments italic */
+}
+/* --- End Custom Highlight.js Overrides --- */
+
+/* --- Typing Indicator --- */
+.typing-indicator {
+    text-align: center; /* Center the inline-block spans */
+    padding: 5px 0; /* Add some vertical padding for spacing */
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+    margin: 0 2px; /* Slightly increase margin between dots */
+    animation: typing-blink 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-blink {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+/* --- End Typing Indicator --- */
+
+/* --- Persona-Specific Message Styling --- */
+.bot-message.persona-pirate {
+    font-family: 'Papyrus', fantasy; /* Example font */
+    background-color: #eaddc7; /* Parchment-like */
+    color: #5a3a22; /* Brown text */
+}
+body.dark-mode .bot-message.persona-pirate {
+    background-color: #4a3c2a;
+    color: #d8c0a1;
+}
+
+.bot-message.persona-steve {
+    font-family: 'Tiny5', sans-serif; /* USE Tiny5 font */
+    background-color: #a0d9a0; /* Brighter green */
+    color: #3a3a3a; /* Darker text */
+    border: 3px solid #5f8f5f; /* Thicker, darker green border */
+    border-radius: 4px; /* Sharper corners */
+    image-rendering: pixelated; /* Helps font rendering */
+    font-size: 1.1em; /* Slightly increase font size for pixel font readability */
+}
+body.dark-mode .bot-message.persona-steve {
+    background-color: #2f4f2f;
+    color: #e0e0e0;
+    border-color: #7f9f7f; /* Slightly lighter border for dark mode */
+}
+
+.bot-message.persona-kinglebron {
+    font-family: Georgia, serif; /* Regal-ish */
+    background-color: #552583; /* Light gold/cream */
+    color: #ffffff; /* Indigo */
+    border-left: 5px solid #FDB927; /* Gold border */
+}
+body.dark-mode .bot-message.persona-kinglebron {
+    background-color: #552583; /* Dark purple/blue */
+    color: #ffffff;
+    border-left-color: #FDB927; /* Dark gold */
+}
+
+/* ASCII Artist style (mostly handled by pre/code) */
+.bot-message.persona-ascii-artist pre {
+    line-height: 1.1; /* Adjust line height for art */
+    font-size: 1em; /* Maybe slightly larger font */
+}
+/* --- End Persona Styling --- */
+
+/* --- Emoji Reactions --- */
+.reactions-palette {
+    position: absolute;
+    bottom: 100%; /* Position above the controls */
+    left: 50%;
+    transform: translateX(-50%) translateY(-5px); /* Center and offset */
+    background-color: var(--container-bg);
+    border-radius: 20px;
+    padding: 5px 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 5px;
+    z-index: 11;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.reactions-palette.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.reaction-emoji {
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 2px;
+    transition: transform 0.1s ease;
+}
+
+.reaction-emoji:hover {
+    transform: scale(1.3);
+}
+
+.message-reactions {
+    /* Container for added reactions below the BOT message bubble */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-left: 0px; /* Align roughly with bot message start */
+    margin-top: -10px; /* Reduced margin, now directly below the block */
+    width: fit-content; 
+    max-width: 100%; 
+}
+
+/* No specific positioning needed now, handled by wrapper */
+/*
+.bot-msg-wrapper .message-reactions {
+    align-self: flex-start; 
+}
+*/
+
+.reaction-bubble {
+    background-color: var(--bot-message-bg); /* Default background */
+    border: 1px solid var(--border-color); /* Default border */
+    border-radius: 10px; /* Keep consistent rounding */
+    padding: 1px 5px;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--bot-message-text); /* Ensure text color matches */
+}
+
+/* Remove general dark mode override, rely on variables and specific rules */
+/* body.dark-mode .reaction-bubble { ... } */
+
+.reaction-bubble .count {
+    font-size: 0.9em;
+    color: var(--text-color); /* Count color uses general text color */
+}
+
+/* --- Persona-themed Reaction Bubbles --- */
+
+/* Pirate */
+.bot-msg-wrapper:has(.bot-message.persona-pirate) .reaction-bubble {
+    background-color: #eaddc7;
+    color: #5a3a22;
+    border-color: #a1887f; /* Add a subtle border */
+}
+body.dark-mode .bot-msg-wrapper:has(.bot-message.persona-pirate) .reaction-bubble {
+    background-color: #4a3c2a;
+    color: #d8c0a1;
+    border-color: #795548;
+}
+
+/* Steve */
+.bot-msg-wrapper:has(.bot-message.persona-steve) .reaction-bubble {
+    background-color: #a0d9a0; 
+    color: #3a3a3a; 
+    border: 2px solid #5f8f5f; /* Match message border style */
+    border-radius: 4px; /* Match message rounding */
+}
+body.dark-mode .bot-msg-wrapper:has(.bot-message.persona-steve) .reaction-bubble {
+    background-color: #2f4f2f;
+    color: #e0e0e0;
+    border-color: #7f9f7f;
+}
+
+/* King LeBron */
+.bot-msg-wrapper:has(.bot-message.persona-kinglebron) .reaction-bubble {
+    background-color: #552583; 
+    color: #ffffff; 
+    border: 1px solid #FDB927; /* Use accent border */
+}
+body.dark-mode .bot-msg-wrapper:has(.bot-message.persona-kinglebron) .reaction-bubble {
+    /* Keep the same for dark mode? Or adjust slightly? */
+    background-color: #552583; 
+    color: #ffffff;
+    border-color: #FDB927;
+}
+
+/* Professor Oak (Subtle theme) */
+.bot-msg-wrapper:has(.bot-message.persona-prof-oak) .reaction-bubble {
+    /* Use a slightly tinted version of the default */
+    background-color: color-mix(in srgb, var(--bot-message-bg) 90%, #78C850 10%);
+    border-color: #78C850; /* Use a hint of green */
+    color: var(--bot-message-text);
+}
+
+/* Add rules for other personas (code-explainer, bullet-points) if desired */
+
+/* --- End Emoji Reactions --- */
+
+/* Style the <pre> element within the wrapper */
+.code-block-wrapper pre {
+    margin: 0; /* Remove default margin */
+    padding: 15px; /* Add padding inside */
+    overflow-x: auto; /* Keep horizontal scroll */
+    color: #abb2bf; /* Default code text color from theme */
+    font-family: monospace; 
+    font-size: 0.9em;
+}
+
+@font-face {
+    font-family: 'Minecraftia';
+    src: url('https://raw.githubusercontent.com/alex-saunders/minecraft-font/master/fonts/Minecraftia-Regular.woff2') format('woff2'),
+         url('https://raw.githubusercontent.com/alex-saunders/minecraft-font/master/fonts/Minecraftia-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- Pokedex Entry Styling --- */
+.pokedex-container {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--message-bg) 90%, var(--text-color) 5%); /* Slightly tinted message bg */
+    padding: 0; /* Remove padding, apply to inner elements */
+    max-width: 380px; /* Slightly smaller */
+    margin: 5px 0;
+    font-family: sans-serif;
+    overflow: hidden; /* Ensure rounded corners contain children */
+}
+
+.pokedex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Use a mix for the header bg, slightly darker than container */
+    background-color: color-mix(in srgb, var(--message-bg) 75%, var(--text-color) 10%); 
+    color: var(--text-color); /* Use theme text color */
+    padding: 8px 15px;
+    /* border-radius: 5px 5px 0 0; Removed, container handles rounding */
+    /* margin: -10px -10px 10px -10px; Removed */
+    border-bottom: 2px solid var(--border-color);
+}
+
+.pokedex-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--text-color); /* Ensure name uses theme text color */
+}
+
+.pokedex-id {
+    font-size: 1.1em;
+    font-weight: bold;
+    /* Use a slightly less prominent background */
+    background-color: color-mix(in srgb, var(--border-color) 50%, transparent);
+    color: var(--text-color); 
+    padding: 3px 9px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.pokedex-image-container { 
+    padding: 15px; 
+    text-align: center;
+    border-bottom: 1px solid var(--border-color); /* Border below image */
+}
+
+.pokedex-image {
+    display: block;
+    margin: 0 auto; /* Center within container */
+    width: 60%; 
+    max-width: 180px;
+    image-rendering: pixelated; 
+}
+
+.pokedex-sections { /* Type/Ability */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0; /* Remove gap, rely on section padding/border */
+    /* margin-bottom: 15px; */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pokedex-section {
+    background-color: transparent; /* Make sections transparent */
+    border: none; /* Remove section border */
+    /* border-radius: 5px; */
+    padding: 10px;
+}
+
+.pokedex-section.type-section {
+    border-right: 1px solid var(--border-color); /* Add border between sections */
+}
+
+.pokedex-section-label {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-color); /* Thinner border */
+    color: var(--text-color); 
+}
+
+/* Type Tags */
+.type-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping if two types are wide */
+    gap: 5px;
+}
+.type-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: white; 
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    border: 1px solid rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3); /* Add slight shadow for readability */
+}
+
+/* Specific Type Colors */
+.type-tag.type-tag-grass    { background-color: #78C850; }
+.type-tag.type-tag-poison   { background-color: #A040A0; }
+.type-tag.type-tag-fire     { background-color: #F08030; }
+.type-tag.type-tag-water    { background-color: #6890F0; }
+.type-tag.type-tag-electric { background-color: #F8D030; }
+.type-tag.type-tag-normal   { background-color: #A8A878; }
+.type-tag.type-tag-fighting { background-color: #C03028; }
+.type-tag.type-tag-flying   { background-color: #A890F0; }
+.type-tag.type-tag-ground   { background-color: #E0C068; }
+.type-tag.type-tag-rock     { background-color: #B8A038; }
+.type-tag.type-tag-bug      { background-color: #A8B820; }
+.type-tag.type-tag-ghost    { background-color: #705898; }
+.type-tag.type-tag-steel    { background-color: #B8B8D0; }
+.type-tag.type-tag-psychic  { background-color: #F85888; }
+.type-tag.type-tag-ice      { background-color: #98D8D8; }
+.type-tag.type-tag-dragon   { background-color: #7038F8; }
+.type-tag.type-tag-dark     { background-color: #705848; }
+.type-tag.type-tag-fairy    { background-color: #EE99AC; }
+
+/* Abilities */
+.ability-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.ability-name {
+     font-size: 0.95em;
+}
+.hidden-ability-tag {
+    font-size: 0.8em;
+    font-style: italic;
+    color: color-mix(in srgb, var(--text-color) 60%, transparent); /* Dimmed theme text color */
+    margin-left: 5px;
+}
+
+/* Stats Section */
+.stats-section {
+     grid-column: 1 / -1; 
+     border-top: 1px solid var(--border-color);
+     padding-top: 10px;
+     margin-top: -1px; /* Overlap border slightly */
+}
+.stats-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.stat-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 30px; /* Adjust widths as needed */
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+.stat-name {
+    text-align: right;
+    font-weight: bold;
+}
+.stat-bar-container {
+    background-color: color-mix(in srgb, var(--border-color) 50%, transparent); /* Faded border color */
+    border-radius: 5px;
+    overflow: hidden;
+    height: 12px; 
+}
+.stat-bar {
+    height: 100%;
+    border-radius: 5px;
+}
+/* Stat Bar Colors (Keep these fixed for now, or use variables if desired) */
+.stat-bar.low-stat { background-color: #F85888; } 
+.stat-bar.mid-stat { background-color: #F8D030; } 
+.stat-bar.high-stat { background-color: #78C850; } 
+
+.stat-value {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* --- End Pokedex Styling --- */
+
+/* --- Added Styles for Pokedex Height/Weight and Flavor Text --- */
+
+/* Style the new Height/Weight Section */
+.pokedex-height-weight {
+    display: flex; /* Arrange Height/Weight side-by-side */
+    justify-content: space-around; /* Space them out */
+    align-items: center;
+    padding: 8px 15px; /* Add padding */
+    font-size: 0.9em;
+    border-bottom: 1px solid var(--border-color); /* Border below H/W */
+    background-color: color-mix(in srgb, var(--message-bg) 95%, var(--text-color) 2%); /* Very subtle background */
+}
+
+/* Style labels and values within H/W */
+.pokedex-height-weight div {
+    /* display: flex; */ /* Removed - let them stack if needed */
+    /* gap: 5px; */
+    align-items: baseline;
+}
+
+.hw-label {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-right: 5px;
+}
+
+
+
+/* Style the Flavor Text Section */
+.pokedex-flavor-section {
+    padding: 12px 15px;
+    border-top: none; /* Remove top border if adjacent H/W has bottom */
+    /* margin-top: -1px; Removed overlap */
+    background-color: color-mix(in srgb, var(--message-bg) 95%, var(--text-color) 2%); /* Match H/W bg */
+}
+
+.pokedex-flavor-text {
+    font-family: 'Georgia', serif; 
+    font-size: 0.95em;
+    font-style: italic;
+    color: color-mix(in srgb, var(--text-color) 80%, transparent);
+    text-align: center;
+    margin: 0; 
+}
+
+/* --- NEW Styles for Evolves Into Section --- */
+.pokedex-evolves-into {
+    padding: 10px 15px; /* Match flavor text padding */
+    background-color: color-mix(in srgb, var(--message-bg) 95%, var(--text-color) 2%); /* Match H/W bg */
+    border-top: 1px solid var(--border-color);
+}
+
+.evolves-into-box {
+    display: flex;
+    justify-content: center; /* Center the evolution links */
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px; /* Space between links */
+    margin-top: 5px; /* Space below label */
+}
+
+.evolution-link {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px; /* Pill shape */
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-size: 0.85em;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid color-mix(in srgb, var(--button-bg) 70%, black);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-family: inherit; /* <-- Inherit font */
+}
+
+.evolution-link:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-1px);
+}
