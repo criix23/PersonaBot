@@ -2,6 +2,10 @@
 
 **A next-generation AI chatbot platform with multiple personalities, powered by Google's Gemini AI.**
 
+![Live](https://img.shields.io/badge/Status-Live-brightgreen)
+
+[personabot.onrender.com](https://personabot.onrender.com/)
+
 Persona Bot transforms the way you interact with AI by offering a diverse range of chatbot personalities, each with unique characteristics, communication styles, and specialized capabilities. Whether you need a technical code explainer, a creative writing assistant, or even a Pokémon expert, Persona Bot adapts to your needs.
 
 ---
