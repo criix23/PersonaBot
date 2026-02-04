@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persona Bot - Access Required</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow: hidden; /* Disable scrollbar */
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            padding: 20px;
+            overflow: hidden; /* Disable scrollbar */
+        }
+        
+        .login-box {
+            background: var(--container-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 26px;
+            padding: 50px 40px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .login-title {
+            color: var(--header-text);
+            margin: 0 0 12px 0;
+            font-size: 1.8em;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .login-subtitle {
+            color: var(--text-color);
+            opacity: 0.7;
+            margin: 0 0 40px 0;
+            text-align: center;
+            font-size: 0.95em;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .login-input {
+            padding: 12px 18px;
+            border: 1px solid var(--input-border);
+            border-radius: 22px;
+            font-size: 1em;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left; /* Left-align input text */
+        }
+        
+        .login-input:focus {
+            border-color: var(--button-bg);
+            background-color: var(--input-bg);
+        }
+        
+        .login-button {
+            padding: 12px 18px;
+            border: 1px solid var(--input-border);
+            border-radius: 22px;
+            font-size: 1em;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            font-family: inherit;
+            transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.1s ease;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        
+        .login-button:hover {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border-color: var(--button-bg);
+            transform: translateY(-1px);
+        }
+        
+        .login-button:active {
+            transform: translateY(0);
+        }
+        
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: -5px;
+            min-height: 20px;
+            width: 100%;
+        }
+        
+        .token-hint {
+            font-size: 0.85em;
+            color: var(--text-color);
+            opacity: 0.6;
+            text-align: center;
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">🎭 Persona Bot</h1>
+            <p class="login-subtitle">Enter your access code to continue</p>
+            
+            <form class="login-form" id="login-form">
+                <input 
+                    type="text" 
+                    id="access-code" 
+                    class="login-input" 
+                    placeholder="Access Code" 
+                    autocomplete="off"
+                    autofocus
+                    required
+                >
+                <button type="submit" class="login-button" id="login-button">Access Chatbot</button>
+                <div class="error-message" id="error-message"></div>
+                <div class="token-hint">Or use a unique access link if provided</div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const codeInput = document.getElementById('access-code');
+        const loginButton = document.getElementById('login-button');
+        const errorMessage = document.getElementById('error-message');
+        
+        // Check if there's a token in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        if (token) {
+            // Auto-submit with token
+            codeInput.value = token;
+            submitLogin(token, true);
+        }
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const code = codeInput.value.trim();
+            if (!code) {
+                showError('Please enter an access code');
+                return;
+            }
+            submitLogin(code, false);
+        });
+        
+        async function submitLogin(code, isToken) {
+            loginButton.disabled = true;
+            errorMessage.textContent = '';
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: isToken ? '' : code,
+                        token: isToken ? code : ''
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = data.redirect || '/';
+                } else {
+                    showError(data.error || 'Invalid access code');
+                    codeInput.focus();
+                }
+            } catch (error) {
+                showError('Connection error. Please try again.');
+                console.error('Login error:', error);
+            } finally {
+                loginButton.disabled = false;
+            }
+        }
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            setTimeout(() => {
+                errorMessage.textContent = '';
+            }, 5000);
+        }
+        
+        // Allow Enter key to submit
+        codeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>

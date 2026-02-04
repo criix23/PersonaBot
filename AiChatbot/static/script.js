@@ -39,14 +39,14 @@ const personaMoods = {
 
 // --- Persona Display Names ---
 const personaDisplayNames = {
-    "default": "AI Chatbot",
-    "pirate": "Pirate Captain Chatbot",
-    "steve": "Steve Chatbot", 
-    "kinglebron": "King LeBron Chatbot",
-    "code-explainer": "Code Explainer Chatbot",
-    "bullet-points": "Summarizer Chatbot",
-    "prof-oak": "Professor Oak Chatbot",
-    "custom": "Custom AI Chatbot"
+    "default": "Persona Bot",
+    "pirate": "Pirate Captain Bot",
+    "steve": "Steve Bot", 
+    "kinglebron": "King LeBron Bot",
+    "code-explainer": "Code Explainer Bot",
+    "bullet-points": "Summarizer Bot",
+    "prof-oak": "Professor Oak Bot",
+    "custom": "Custom Persona Bot"
 };
 
 // --- SVG Icons ---
@@ -84,7 +84,7 @@ function toggleSettingsMenu() {
     if (isVisible) {
         personaSelect.value = currentPersona;
         // Load the *user's actual typed custom rules* into the textarea initially
-        rulesetInput.value = userCustomRuleset; 
+        rulesetInput.value = userCustomRuleset;
         handlePersonaChange(); // Hide/show based on loaded persona
     }
 }
@@ -683,7 +683,7 @@ async function sendMessage() {
             persona: currentPersona // Send the persona NAME
         };
         if (currentPersona === 'custom') { payload.customRuleset = userCustomRuleset; }
-        console.log(`[sendMessage] Sending payload: ${JSON.stringify(payload)}`);
+        console.log(`[sendMessage] Sending payload (API key hidden): ${JSON.stringify({...payload, apiKey: payload.apiKey ? '***' : null})}`);
 
         const response = await fetch('/chat', {
             method: 'POST',
@@ -1232,7 +1232,7 @@ async function addOrUpdateReaction(messageId, selectedEmoji) {
                     messageId: messageId,
                     emoji: selectedEmoji,
                     originalText: originalText.substring(0, 500), 
-                    botPersona: messagePersona 
+                    botPersona: messagePersona
                 })
                 // No AbortController needed for this short message?
             });
