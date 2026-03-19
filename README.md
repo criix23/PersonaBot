@@ -67,18 +67,6 @@ Ask Professor Oak about any Pokémon and receive:
 - **Secure Sessions** - Industry-standard session management
 - **Security Headers** - Comprehensive protection against common web vulnerabilities
 
----
-
-## 🚀 Live Demo
-
-Experience Persona Bot in action! 
-
-**Note:** Access code required. Contact the administrator for access.
-
-*Deployed on Render - a modern cloud platform used by industry-leading companies.*
-
----
-
 ## 💡 Use Cases
 
 ### For Developers
@@ -190,22 +178,6 @@ You: Give me motivation
 Bot: "Strive for greatness, young warrior. The court of life awaits your excellence..."
 ```
 
----
-
-## 🤝 For Employers & Clients
-
-Persona Bot demonstrates:
-
-- **Full-Stack Development** - Complete web application from backend to frontend
-- **AI Integration** - Advanced integration with Google's Gemini API
-- **Security Expertise** - Implementation of industry-standard security measures
-- **User Experience Design** - Intuitive, polished interface
-- **API Integration** - External API integration (PokéAPI)
-- **Real-time Features** - Streaming responses and interactive elements
-- **Production Deployment** - Ready for enterprise use
-
----
-
 ## 📄 License
 
 This project is open source and available for personal and commercial use.
@@ -219,5 +191,3 @@ This project is open source and available for personal and commercial use.
 - **Open Source Community** for the amazing libraries that made this possible
 
 ---
-
-*Experience the future of conversational AI with Persona Bot.*
