@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from functools import wraps
-import google.generativeai as genai
+import google.genai as genai
 import os
 import json
 import requests
@@ -24,6 +24,9 @@ ACCESS_TOKENS = [t.strip() for t in os.environ.get('ACCESS_TOKENS', '').split(',
 
 # List of Gemini models to try in order (with fallback)
 GEMINI_MODELS = [
+    "gemini-3-flash",
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
     "gemini-1.5-flash",
     "gemini-1.5-pro",
     "gemini-pro"
@@ -84,19 +87,16 @@ predefinedRulesets = {
 
 # --- Initialize Gemini API ---
 def get_available_models():
-    """Fetch and cache available Gemini models."""
+    """Fetch and cache available Gemini models using google.genai."""
     global available_models
     if available_models is not None:
         return available_models
-    
     if not DEFAULT_API_KEY:
         raise ValueError("No API key provided. Please set GEMINI_API_KEY environment variable.")
-    
     try:
         genai.configure(api_key=DEFAULT_API_KEY)
         models = genai.list_models()
-        available_models = [model.name.split('/')[-1] for model in models 
-                           if 'generateContent' in model.supported_generation_methods]
+        available_models = [model.name for model in models if hasattr(model, 'generation_methods') and 'generateContent' in model.generation_methods]
         print(f"[app.py] Available Gemini models: {available_models}")
         return available_models
     except Exception as e:
@@ -105,7 +105,7 @@ def get_available_models():
         return GEMINI_MODELS
 
 def get_gemini_model(model_name):
-    """Get a Gemini model instance."""
+    """Get a Gemini model instance using google.genai."""
     if not DEFAULT_API_KEY:
         raise ValueError("No API key provided. Please set GEMINI_API_KEY environment variable.")
     genai.configure(api_key=DEFAULT_API_KEY)

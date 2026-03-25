@@ -10,9 +10,9 @@ Persona Bot transforms the way you interact with AI by offering a diverse range 
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🎨 Multiple AI Personalities
+### Multiple AI Personalities
 
 Choose from a curated collection of AI personas, each with distinct communication styles:
 
@@ -25,11 +25,11 @@ Choose from a curated collection of AI personas, each with distinct communicatio
 - **Professor Oak** - Pokémon expert with live Pokédex integration
 - **Custom Persona** - Create your own unique personality with custom instructions
 
-### 💬 Real-Time Streaming Conversations
+### Real-Time Streaming Conversations
 
 Experience fluid, natural conversations with real-time response streaming. Watch as the AI crafts its responses word-by-word, creating an engaging and interactive chat experience.
 
-### 🎮 Special Features
+### Special Features
 
 #### Pokémon Integration (Professor Oak Persona)
 Ask Professor Oak about any Pokémon and receive:
@@ -52,14 +52,14 @@ Ask Professor Oak about any Pokémon and receive:
 - One-click code copying
 - Support for multiple programming languages
 
-### 🎨 Beautiful, Modern UI
+### Beautiful, Modern UI
 
 - **Dark/Light Theme Toggle** - Switch between themes with one click
 - **Responsive Design** - Works seamlessly on desktop and mobile
 - **Smooth Animations** - Polished user experience
 - **Accessible** - Clean, readable interface with proper contrast
 
-### 🔒 Enterprise-Grade Security
+### Enterprise-Grade Security
 
 - **Access Control** - Protect your deployment with access codes or unique tokens
 - **Rate Limiting** - Built-in protection against abuse and DDoS attacks
@@ -67,7 +67,7 @@ Ask Professor Oak about any Pokémon and receive:
 - **Secure Sessions** - Industry-standard session management
 - **Security Headers** - Comprehensive protection against common web vulnerabilities
 
-## 💡 Use Cases
+## Use Cases
 
 ### For Developers
 - **Code Explanation** - Get detailed explanations of complex code
@@ -91,7 +91,7 @@ Ask Professor Oak about any Pokémon and receive:
 
 ---
 
-## 🎯 Why Persona Bot?
+## Why Persona Bot?
 
 ### Versatility
 One platform, infinite possibilities. Switch between personas instantly to match your current need.
@@ -110,7 +110,7 @@ Enterprise-ready security features protect your deployment and API keys.
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Backend:** Python with Flask
 - **AI Engine:** Google Gemini AI (with automatic model fallback)
@@ -121,7 +121,7 @@ Enterprise-ready security features protect your deployment and API keys.
 
 ---
 
-## 📊 Features Overview
+## Features Overview
 
 | Feature | Description |
 |---------|-------------|
@@ -137,7 +137,7 @@ Enterprise-ready security features protect your deployment and API keys.
 
 ---
 
-## 🎮 Try It Out
+## Try It Out
 
 1. **Access the Platform** - Use your access code or unique token link
 2. **Choose a Persona** - Select from the settings menu (⚙️)
@@ -147,18 +147,18 @@ Enterprise-ready security features protect your deployment and API keys.
 
 ---
 
-## 🌟 Highlights
+## Highlights
 
-- ⚡ **Fast & Responsive** - Optimized for speed with streaming responses
-- 🎨 **Beautiful UI** - Modern, clean interface with smooth animations
-- 🔒 **Secure** - Enterprise-grade security features
-- 🎭 **Versatile** - Multiple personas for different use cases
-- 📱 **Accessible** - Works on desktop, tablet, and mobile
-- 🚀 **Production-Ready** - Built for real-world deployment
+- **Fast & Responsive** - Optimized for speed with streaming responses
+- **Beautiful UI** - Modern, clean interface with smooth animations
+- **Secure** - Enterprise-grade security features
+- **Versatile** - Multiple personas for different use cases
+- **Accessible** - Works on desktop, tablet, and mobile
+- **Production-Ready** - Built for real-world deployment
 
 ---
 
-## 📝 Example Interactions
+## Example Interactions
 
 **With Code Explainer:**
 ```
@@ -178,13 +178,13 @@ You: Give me motivation
 Bot: "Strive for greatness, young warrior. The court of life awaits your excellence..."
 ```
 
-## 📄 License
+## License
 
 This project is open source and available for personal and commercial use.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Google Gemini AI** for providing the AI capabilities
 - **PokéAPI** for comprehensive Pokémon data
