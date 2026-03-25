@@ -866,6 +866,11 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+@app.route('/api/access-code')
+def get_access_code():
+    """Provide the access code to the frontend if it's set."""
+    return jsonify({'access_code': ACCESS_CODE})
+
 # --- Health Check Endpoint (for monitoring) ---
 @app.route('/health')
 @limiter.exempt  # Don't rate limit health checks

@@ -126,13 +126,47 @@
             margin-top: 15px;
             width: 100%;
         }
+
+        /* Styles for Tooltip */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            color: var(--header-text);
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        .tooltip-container .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            white-space: nowrap; /* Prevent text wrapping in tooltip */
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="dark-mode">
     <div class="login-container">
         <div class="login-box">
             <h1 class="login-title">🎭 Persona Bot</h1>
-            <p class="login-subtitle">Enter your access code to continue</p>
+            <p class="login-subtitle">Enter <strong id="dynamic-access-code-placeholder"></strong><span class="tooltip-container">*<span class="tooltip-text">Visible, as it is a free API with a daily limit. Serving only as protection against bots/crawlers.</span></span> to continue</p>
             
             <form class="login-form" id="login-form">
                 <input 
@@ -152,6 +186,21 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch and display the access code
+            fetch('/api/access-code')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.access_code) {
+                        const accessCodePlaceholder = document.getElementById('dynamic-access-code-placeholder');
+                        if (accessCodePlaceholder) {
+                            accessCodePlaceholder.textContent = data.access_code;
+                        }
+                    }
+                })
+                .catch(error => console.error('Error fetching access code:', error));
+        });
+
         const form = document.getElementById('login-form');
         const codeInput = document.getElementById('access-code');
         const loginButton = document.getElementById('login-button');
