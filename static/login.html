@@ -148,11 +148,10 @@
             z-index: 1;
             bottom: 150%;
             left: 50%;
-            margin-left: -110px;
+            transform: translateX(-50%);
             opacity: 0;
             transition: opacity 0.3s;
             font-weight: normal;
-            white-space: nowrap; /* Prevent text wrapping in tooltip */
         }
 
         .tooltip-container:hover .tooltip-text {
@@ -165,7 +164,7 @@
     <div class="login-container">
         <div class="login-box">
             <h1 class="login-title">🎭 Persona Bot</h1>
-            <p class="login-subtitle">Enter <strong id="dynamic-access-code-placeholder"></strong><span class="tooltip-container">*<span class="tooltip-text">Visible, as it is a free API with a daily limit. Serving only as protection against bots/crawlers.</span></span> to continue</p>
+            <p class="login-subtitle">Enter <strong id="dynamic-access-code-placeholder"></strong><span class="tooltip-container">*<span class="tooltip-text">Visible, as it is a free API with a daily limit. <br> Serving only as protection against bots/crawlers.</span></span> to continue</p>
             
             <form class="login-form" id="login-form">
                 <input 
@@ -179,7 +178,6 @@
                 >
                 <button type="submit" class="login-button" id="login-button">Access Chatbot</button>
                 <div class="error-message" id="error-message"></div>
-                <div class="token-hint">Or use a unique access link if provided</div>
             </form>
         </div>
     </div>
